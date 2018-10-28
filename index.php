@@ -1,59 +1,75 @@
 <?php
 	session_start();
-	function get_users(){
-		include ("db.php");
-		$result=mysqli_query($db,"SELECT * FROM userz");
-  		$users=array();
-  		while($object=mysqli_fetch_object($result))
-		{
-    			$users[]=$object;
-		}
-  		mysqli_close($db);
-  		return $users;
-	}
-	function get_table(){
- 		$table_str='<table>';
-  		$users=get_users();
-  		foreach ($users as $users) {
-      			$table_str.='<tr>';
-      			$table_str.='<td>'.$users->id.'</td><td>'.$users->login.'</td><td>'.$users->role.'</td><td><a href="profile.php?id='.$users->id.'">view_profile</a></td>';
-      			$table_str.='</tr>';
-  		}
-  		$table_str.='</table>';
-  		return   $table_str;
-	}
 ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="windows-1251">
 	</head>
 	<body>
-		<?php	
+		<script type="text/javascript">
+		window.onload = function(){
+			document.getElementById('login').onsubmit=function() {
+				var inputs = document.getElementById("login").elements;
+				$.ajax({
+					type: "POST",
+					url: "login.php",
+					data: {login:inputs[0].value, pass:inputs[1].value},
+					success: function(){
+						alert("Logged in");
+						window.location.href = "profile.php";
+					}
+				})
+				return false;
+			}
+		}
+		</script>
+		
+		<script>
+		function get_table(){
+			$.ajax({
+				url: "table.php",
+				success: function(data){
+					alert(data);
+					$(data).text(htmlString);
+				}
+			})
+		}
+		</script>
+		<?php
 			if(isset($_SESSION["role"]))
 			{
 				echo "you are ".$_SESSION["role"];
 			}
 			else
 			{
-				echo"<form name=\"login\" action=\"login.php\" method=\"post\">";	
-				echo"Login: <br> <input type=\"text\" name=\"login\"> <br>";
-				echo"Pasword: <br> <input type=\"password\" name=\"pass\"> <br>";	
-				echo"<input type=\"submit\" value=\"Enter\"> <br>";
+				?>
+				<form id="login">
+				Login: <br> <input type="text" name="login"> <br>
+				Pasword: <br> <input type="password" name="pass"> <br>
+				<input type="submit" value="Enter"> <br>
+				<?php
 			}
-			echo"<form action=\"http://localhost/profile.php\">";
+			?>
+			<form action="http://localhost/profile.php">
+			<?php
 			if(isset($_SESSION["login"]))
     				echo"<input type=\"submit\" value=\"Profile\">";
-			echo"</form>";
-			echo "<br><br><br>";
-			echo "<center>",get_table(),"</center>";
+		  ?>
+			</form>
+			<br><br><br>
+			<center><script>get_table()</script></center>
+			<?php
 			if(isset($_SESSION["login"]))
 			{
-				echo"<form action=\"http://localhost/log_out.php\">";
-				echo"<input type=\"submit\" value=\"Log out\">";
-				echo"</form>";
+				?>
+				<form action="http://localhost/log_out.php">
+				<input type="submit" value="Log out">
+				</form>
+				<?php
 			}
 		?>
-		
+
 	</body>
 </html>
