@@ -12,15 +12,15 @@
 		}
 		$login = $_POST["login"];
 		$pass = $_POST["pass"];
-		// корректируем введённые данные
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		$login = stripslashes($login);
-   		$login = htmlspecialchars($login);
+   	$login = htmlspecialchars($login);
 		$login = trim($login);
 		$pass = stripslashes($pass);
-    		$pass = htmlspecialchars($pass);
+    $pass = htmlspecialchars($pass);
 		$pass = trim($pass);
 		include ("db.php");
-		
+
 		$result = mysqli_query($db, "SELECT * FROM userz WHERE login='$login'");
 		$myrow = mysqli_fetch_array($result);
 		if(empty($myrow['password']))
@@ -37,11 +37,7 @@
 				$_SESSION['surname'] = $myrow['surname'];
 				$_SESSION['role'] = $myrow['role'];
 				$_SESSION['password'] = $myrow['password'];
-//"SELECT name FROM userz WHERE login='$login'"
-				echo "Welcome ".$myrow['name']." ".$myrow['surname']." you logged in as a ".$myrow['role'];
-				header ('Refresh: 3; URL=http://localhost/profile.php');
-				//header ('Location: http://localhost/profile.php');  // перенаправление на нужную страницу
-   				exit();    // прерываем работу скрипта, чтобы забыл о прошлом
+   			exit();    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			}
 			else
 			{

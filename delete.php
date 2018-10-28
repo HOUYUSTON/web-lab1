@@ -1,17 +1,14 @@
 <?php
 	session_start();
-	if(isset($_GET['id']))
+	if(isset($_POST['id']))
 	{
-		$id = $_GET['id'];
-		include ("db.php");		
-		$result = mysqli_query($db, "DELETE FROM userz WHERE id='$id'");
+		echo"id";
+		$id = $_POST['id'];
+		include ("db.php");
+		mysqli_query($db, "DELETE FROM userz WHERE id='$id'");
 		if($id==$_SESSION['id'])
 		{
-			header("Location: log_out.php");
+			session_unset();
 		}
-		else
-		{
-			header("Location: index.php");
-		}
-	}	
+	}
 ?>
