@@ -17,6 +17,7 @@
 					url: "login.php",
 					data: {login:inputs[0].value, pass:inputs[1].value},
 					success: function(){
+						alert("Logged in");
 						window.location.href = "profile.php";
 					}
 				})
@@ -24,20 +25,17 @@
 			}
 		}
 
-		window.onload = function(){
-			document.getElementById('search').onsubmit=function() {
+		function search() {
 				var inputs = document.getElementById("search").elements;
 				$.ajax({
 					type: "POST",
 					url: "table.php",
 					data: {login:inputs[0].value},
 					success: function(data){
-						alert("Logged in");
 						$("#table").html(data);
 					}
 				})
 				return false;
-			}
 		}
 
 		function get_table(){
@@ -83,7 +81,7 @@
     				echo"<input type=\"submit\" value=\"Profile\">";
 		  ?>
 			</form>
-			<br><br><center><form id="search"><input type="text" name="login" id="log_search"><input type="submit" value="Search"><br></form></center><br>
+			<br><br><center><form id="search"><input type="text" name="login" id="log_search"><input type="button" value="Search" onClick="search()"><br></form></center><br>
 			<center><input type="button" value="Descending" onclick="get_sorted('desc')"><input type="button" value="Ascending" onclick="get_sorted('asc')"></center>
 			<script> get_table() </script>
 			<center><div id="table"></div></center>
