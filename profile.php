@@ -48,7 +48,7 @@
 				else {
 					echo $_SESSION["id"];
 				}?>;
-				alert(id);
+				//alert(id);
 				$.ajax({
 					type: "POST",
 					url: "save.php",
@@ -67,7 +67,6 @@
 if(isset($_GET['id']))
 {
 	$id = $_GET['id'];
-	echo $id;
 	include ("db.php");
 	$result = mysqli_query($db, "SELECT * FROM userz WHERE id='$id'");
 	$myrow = mysqli_fetch_array($result);
@@ -135,8 +134,7 @@ if(isset($_GET['id']))
 	}
 }
 else
-{
-	echo $_SESSION["id"]?>
+{?>
 	<form id="save">
 	Role:<br>
 	<?php echo $_SESSION["role"] ?><br>
