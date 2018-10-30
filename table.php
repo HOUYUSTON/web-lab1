@@ -55,18 +55,4 @@
   		return   $table_str;
 	}
 	echo get_table();
-	/*$result='';
-	if(isset($_POST["type"])){
-		echo $_POST["type"];
-		if($_POST["type"]=="asc"){
-
-		}
-		if($_POST["type"]=="desc"){
-
-		}
-	}
-	else{
-	  $result=get_table();
-	}
-	echo $result;*/
 ?>
